@@ -40,7 +40,5 @@ int main()
             cout << '.';
         }
     }
-    cout << endl
-         << cnt;
     return 0;
 }
