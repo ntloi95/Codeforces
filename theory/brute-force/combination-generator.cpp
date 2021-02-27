@@ -14,7 +14,7 @@ void output(int x[], int k)
 
 void combination(int x[], int i, int n, int k)
 {
-    for (int j = x[i - 1] + 1; j <= n + k - i; j++)
+    for (int j = x[i - 1] + 1; j <= n - k + i; j++)
     {
         x[i] = j;
         if (i == k)
