@@ -8,6 +8,7 @@ const int N = 50;
 
 int main()
 {
+    ios::sync_with_stdio(false);
 
     return 0;
 }
