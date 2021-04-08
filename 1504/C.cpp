@@ -7,6 +7,22 @@ using namespace std;
 const int N = 200005;
 
 int res[N];
+
+void printRes(int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (res[i] == 1)
+        {
+            cout << ')';
+        }
+        else
+        {
+            cout << '(';
+        }
+    }
+}
+
 int main()
 {
     ios::sync_with_stdio(false);
@@ -24,11 +40,12 @@ int main()
             cout << "NO" << endl;
             continue;
         }
+
         res[0] = 0;
         res[n - 1] = 1;
 
-        int c = 0;
         int cnt = 0;
+        int c = 0;
         for (int i = 1; i < n - 1; i++)
         {
             if (s[i] == '1')
@@ -54,46 +71,17 @@ int main()
                 c = 1 - c;
             }
         }
-
         cout << "YES" << endl;
-        for (int i = 0; i < n; i++)
-        {
-            if (res[i])
-            {
-                cout << ')';
-            }
-            else
-            {
-                cout << '(';
-            }
-        }
-
+        printRes(n);
         cout << endl;
-        for (int i = 0; i < n; i++)
+        for (int i = 1; i < n - 1; i++)
         {
-            if (s[i] == '1')
+            if (s[i] == '0')
             {
-                if (res[i])
-                {
-                    cout << ')';
-                }
-                else
-                {
-                    cout << '(';
-                }
-            }
-            else
-            {
-                if (!res[i])
-                {
-                    cout << ')';
-                }
-                else
-                {
-                    cout << '(';
-                }
+                res[i] = 1 - res[i];
             }
         }
+        printRes(n);
         cout << endl;
     }
     return 0;
