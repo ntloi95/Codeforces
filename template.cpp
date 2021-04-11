@@ -3,12 +3,18 @@
 #define ii pair<int, int>
 #define fi first
 #define se second
+#define multitest \
+    int t;        \
+    cin >> t;     \
+    while (t--)
 using namespace std;
 const int N = 50;
 
 int main()
 {
     ios::sync_with_stdio(false);
-
+    multitest
+    {
+    }
     return 0;
 }
