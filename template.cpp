@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #define ll long long
+#define ld double
 #define ii pair<int, int>
 #define fi first
 #define se second
