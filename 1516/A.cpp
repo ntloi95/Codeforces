@@ -19,17 +19,32 @@ int main()
     ios::sync_with_stdio(false);
     multitest
     {
-        ll n, k;
+        int n, k;
         cin >> n >> k;
-
-        ll res = 1;
-        for (int i = 0; i < k; i++)
+        vector<int> v(n);
+        for (int &x : v)
         {
-            res *= n;
-            res %= MOD;
+            cin >> x;
         }
 
-        cout << res << endl;
+        int i = 0;
+        while (k && (i < n - 1))
+        {
+            while ((v[i] != 0) && k)
+            {
+                v[i]--;
+                v[n - 1]++;
+                k--;
+            }
+
+            i++;
+        }
+
+        for (int x : v)
+        {
+            cout << x << ' ';
+        }
+        cout << el;
     }
     return 0;
 }

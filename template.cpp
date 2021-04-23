@@ -5,6 +5,9 @@
 #define fi first
 #define se second
 #define el endl
+#define bit1 __builtin_popcount
+#define less_bit_1 __builtin_ctz
+#define cgd __cgd
 
 #define multitest \
     int t;        \
