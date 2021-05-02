@@ -2,6 +2,8 @@
 #define ll long long
 #define ld double
 #define ii pair<int, int>
+#define vi vector<int>
+#define vvi vector<vi>
 #define fi first
 #define se second
 #define el endl
