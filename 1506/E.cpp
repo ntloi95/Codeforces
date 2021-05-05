@@ -1,83 +1,93 @@
 #include <bits/stdc++.h>
 #define ll long long
+#define ld double
 #define ii pair<int, int>
+#define vi vector<int>
+#define vvi vector<vi>
 #define fi first
 #define se second
+#define el endl
+#define bit1 __builtin_popcount
+#define less_bit_1 __builtin_ctz
+#define cgd __cgd
+
+#define multitest \
+    int nTest;    \
+    cin >> nTest; \
+    while (nTest--)
 using namespace std;
-const int N = 200005;
-int q[N], r[N];
-bool v[N];
+const int N = 1e6 + 10;
+const int MOD = 1e9 + 7;
 
 int main()
 {
     ios::sync_with_stdio(false);
-    int t;
-    cin >> t;
-
-    while (t--)
+    multitest
     {
         int n;
         cin >> n;
-        memset(v, 0, sizeof(v));
-
-        for (int i = 0; i < n; i++)
-        {
-            cin >> q[i];
-            v[q[i]] = true;
-            r[i] = -1;
-        }
-
-        set<int> miss;
+        vi resMi(n, 0), resMx(n, 0);
+        set<int> mi;
+        set<int> mx;
         for (int i = 1; i <= n; i++)
         {
-            if (v[i] == false)
-            {
-                miss.insert(i);
-            }
+            mi.insert(i);
+            mx.insert(i);
         }
 
-        r[0] = q[0];
+        int x;
+        cin >> x;
+        resMx[0] = x;
+        resMi[0] = x;
+        mi.erase(x);
+        mx.erase(x);
 
+        int pre = x;
         for (int i = 1; i < n; i++)
         {
-            if (q[i] != q[i - 1])
+            cin >> x;
+            if (pre != x)
             {
-                r[i] = q[i];
+                resMi[i] = x;
+                resMx[i] = x;
+                mi.erase(x);
+                mx.erase(x);
+                pre = x;
             }
         }
 
-        auto it = miss.begin();
         for (int i = 0; i < n; i++)
         {
-            if (r[i] != -1)
+            if (resMi[i] == 0)
             {
-                cout << r[i] << ' ';
+                int v = *mi.begin();
+                resMi[i] = v;
+                mi.erase(v);
             }
-            else
-            {
-                cout << *it << ' ';
-                it++;
-            }
-        }
-        cout << endl;
 
-        int pivot;
+            cout << resMi[i] << ' ';
+        }
+
+        cout << el;
+
+        int p = 0;
         for (int i = 0; i < n; i++)
         {
-            if (r[i] != -1)
+            if (resMx[i])
             {
-                cout << r[i] << ' ';
-                pivot = r[i];
+                p = resMx[i];
             }
             else
             {
-                it = miss.upper_bound(pivot);
+                auto it = mx.upper_bound(p);
                 it--;
-                cout << *it << ' ';
-                miss.erase(it);
+                resMx[i] = *it;
+                mx.erase(*it);
             }
+
+            cout << resMx[i] << ' ';
         }
-        cout << endl;
+        cout << el;
     }
     return 0;
 }
