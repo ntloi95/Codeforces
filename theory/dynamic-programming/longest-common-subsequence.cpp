@@ -24,6 +24,10 @@ int main()
         cin >> x;
     }
 
+    // dp[i][j] = longest length of prefix first i elements in a, first j elemets in b
+    // dp[0][0] = 0;
+    // dp[i][j] = dp[i-1][j-1] + 1 if (a[i] == a[j])
+    //          = max(dp[i-1][j], dp[i][j-1]) if (a[i] != a[j])
     vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
 
     for (int i = 1; i <= n; i++)

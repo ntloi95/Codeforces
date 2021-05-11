@@ -17,6 +17,9 @@ int main()
         cin >> x;
     }
 
+    // dp[i] = maximum length of sub sequence end at i.
+    // dp[i] = max(dp[j]+1) with all j < i && a[j] < a[i]
+    // res = max(dp[i]) with all i
     vector<int> dp(n, 0);
     vector<int> pre(n);
 
