@@ -19,6 +19,28 @@ using namespace std;
 const int N = 1e6 + 10;
 const int MOD = 1e9 + 7;
 
+void update(map<ii, int> &cache, int p, int l, int r)
+{
+    if (cache.count({l, r}))
+        cache[{l, r}]++;
+
+    if (l >= r)
+    {
+        return;
+    }
+
+    int m = (l + r) / 2;
+
+    if (p <= m)
+    {
+        update(cache, p, l, m);
+    }
+    else
+    {
+        update(cache, p, m + 1, r);
+    }
+}
+
 int main()
 {
     ios::sync_with_stdio(false);
@@ -30,15 +52,23 @@ int main()
     cout.flush();
 
     int cur;
+    map<ii, int> cache;
+
     while (t--)
     {
         cin >> k;
         while (l < r)
         {
-            int m = (r + l) / 2;                 // 4
-            cout << "? " << l << ' ' << m << el; // 4 4
-            cout.flush();
-            cin >> cur;
+            int m = (r + l) / 2;
+            if (cache.count({l, m}) == 0)
+            {
+                cout << "? " << l << ' ' << m << el; // 4 4
+                cout.flush();
+                cin >> cur;
+                cache[{l, m}] = cur;
+            }
+
+            cur = cache[{l, m}];
             int cntL = m - l + 1 - cur; // 0
 
             if (cntL < k)
@@ -52,6 +82,8 @@ int main()
 
         cout << "! " << l << endl;
         cout.flush();
+
+        update(cache, l, 1, n);
         l = 1;
         r = n;
     }

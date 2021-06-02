@@ -8,21 +8,10 @@ const int N = 50;
 
 int main()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (auto &x : a)
-    {
-        cin >> x;
-    }
-
-    int m;
-    cin >> m;
-    vector<int> b(m);
-    for (auto &x : b)
-    {
-        cin >> x;
-    }
+    string a, b;
+    cin >> a >> b;
+    int n = a.size();
+    int m = b.size();
 
     // dp[i][j] = longest length of prefix first i elements in a, first j elemets in b
     // dp[0][0] = 0;
@@ -46,7 +35,7 @@ int main()
     }
 
     cout << dp[n][m] << endl;
-    vector<int> ans;
+    vector<char> ans;
     int i = n;
     int j = m;
     while (i > 0 && j > 0)
