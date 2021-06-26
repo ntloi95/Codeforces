@@ -21,6 +21,16 @@ int main()
         cin >> x;
     }
 
+    // dp[i][j] = max value of first i items with limit j weight.
+    // dp[i][0] = 0;
+    // dp[0][i] = 0;
+    // dp[i][j] = dp[i-1][j] if weight[i] > j;
+    //          = dp[i-1][j-weight[i]] + value[i] if weight <= j;
+    // res = dp[n][m];
+
+    // trace back.
+    // if dp[i][j] == dp[i-1][j] => means we did not select item i.
+    // else we selected items i.
     vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
 
     for (int i = 1; i <= n; i++)
@@ -30,7 +40,7 @@ int main()
             dp[i][j] = dp[i - 1][j];
             if (j >= w[i - 1])
             {
-                dp[i][j] = max(dp[i - 1][j], v[i - 1] + dp[i - 1][j - w[i - 1]]);
+                dp[i][j] = max(dp[i][j], v[i - 1] + dp[i - 1][j - w[i - 1]]);
             }
         }
     }

@@ -3,59 +3,78 @@
 #define ii pair<int, int>
 #define fi first
 #define se second
+#define vi vector<int>
 using namespace std;
 const int N = 50;
+
+int my_lower_bound(vector<int> f, int v)
+{
+    int l = 0;
+    int r = f.size();
+    while (l < r)
+    {
+        int m = (l + r) / 2;
+        if (f[m] < v)
+        {
+            l = m + 1;
+        }
+        else
+        {
+            r = m;
+        }
+    }
+
+    return r;
+}
 
 int main()
 {
     int n;
     cin >> n;
 
-    vector<int> a(n);
-    for (auto &x : a)
-    {
-        cin >> x;
-    }
+    vector<int> a({0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15});
+    vi f;
+    vi end_id;
+    vi trace(a.size());
 
-    vector<int> dp(n, 0);
-    vector<int> pre(n);
-
-    int ansLen = 0;
-    int ansId = -1;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < a.size(); i++)
     {
-        int id = -1;
-        int maxLen = 0;
-        for (int j = 0; j < i; j++)
+        int x = a[i];
+        auto j = my_lower_bound(f, x);
+        if (j == f.size())
         {
-            if (a[j] < a[i] && dp[j] > maxLen)
+            trace[i] = end_id.empty() ? -1 : end_id.back();
+            f.push_back(x);
+            end_id.push_back(i);
+        }
+        else
+        {
+            f[j] = x;
+            if (j == 0)
             {
-                id = j;
-                maxLen = dp[j];
+                trace[i] = -1;
             }
-        }
-
-        dp[i] = maxLen + 1;
-        pre[i] = id;
-
-        if (dp[i] > ansLen)
-        {
-            ansLen = dp[i];
-            ansId = i;
+            else
+            {
+                trace[i] = end_id[j - 1];
+            }
+            end_id[j] = i;
         }
     }
 
-    cout << ansLen << endl;
     vector<int> ans;
-    while (ansId != -1)
+    int id = end_id.back();
+    while (id != -1)
     {
-        ans.push_back(a[ansId]);
-        ansId = pre[ansId];
+        ans.push_back(a[id]);
+        id = trace[id];
     }
 
-    for (int i = ans.size() - 1; i >= 0; i--)
+    reverse(ans.begin(), ans.end());
+
+    for (int x : ans)
     {
-        cout << ans[i] << ' ';
+        cout << x << ' ';
     }
     return 0;
 }
